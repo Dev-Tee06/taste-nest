@@ -1,71 +1,68 @@
 import { useCart } from "../Components/CartContext";
+import { Link } from "react-router-dom";
 
 export const Navbar = ({ menuOpen, setMenuOpen }) => {
   const { cartCount } = useCart();
 
-  return (
-    <nav className="fixed top-0 w-full z-40 bg-[#f0f0f0] backdrop-blur-lg border-b border-white/10 shadow-lg">
-      <div className="max-w-10xl mx-auto px-7">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo (Left) */}
-          <a href="#home" className="font-mono text-3xl font-bold">
-            <span className="text-black-600 italic">
-              TASTE
-              <span className="font-bold text-orange-600 italic">NEST</span>
-            </span>
-          </a>
+  const navItemClass =
+    "relative text-gray-700 font-medium text-sm tracking-wide transition hover:text-orange-600 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full";
 
-          {/* Menu + Cart (Right) */}
-          <div className="flex items-center space-x-8">
-            {/* Menu links */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="#home"
-                className="text-orange-600 hover:text-gray font-semibold text-lg hover:text-[#CC5500] cursor-pointer py-2 hover:border-b-5 hover:border-[#CC5500] transition-all duration-300"
-              >
+  return (
+    <nav className="fixed top-0 w-full z-40 bg-white/80 backdrop-blur-lg border-b border-black/5 shadow-sm">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="text-2xl font-extrabold tracking-tight">
+            <span className="text-gray-900">
+              TASTE
+              <span className="text-orange-600">NEST</span>
+            </span>
+          </Link>
+
+          {/* Right Section */}
+          <div className="flex items-center gap-8">
+            {/* Desktop Links */}
+            <div className="hidden md:flex items-center gap-8">
+              <Link to="/" className={navItemClass}>
                 Home
-              </a>
-              <a
-                href="#about"
-                className="text-orange-600 hover:text-gray font-semibold text-lg hover:text-[#CC5500] cursor-pointer py-2 hover:border-b-5 hover:border-[#CC5500] transition-all duration-300"
-              >
-                About
-              </a>
-              <a
-                href="#menu"
-                className="text-orange-600 hover:text-gray font-semibold text-lg hover:text-[#CC5500] cursor-pointer py-2 hover:border-b-5 hover:border-[#CC5500] transition-all duration-300"
-              >
+              </Link>
+              <Link to="/menu" className={navItemClass}>
                 Menu
-              </a>
-              <a
-                href="#contact"
-                className="text-white bg-orange-600 rounded-[50px] py-2 px-4 transition-all duration-300"
+              </Link>
+              <Link to="/blog" className={navItemClass}>
+                Blog
+              </Link>
+              <Link to="/order" className={navItemClass}>
+                Order
+              </Link>
+
+              {/* CTA */}
+              <Link
+                to="/contact"
+                className="ml-2 px-5 py-2 rounded-full text-sm font-semibold text-white bg-orange-600 hover:bg-orange-700 transition"
               >
                 Contact
-              </a>
+              </Link>
             </div>
 
-            {/* Cart Icon */}
-            <div className="relative cursor-pointer text-3xl text-cyan-700">
+            {/* Cart */}
+            <div className="relative cursor-pointer text-2xl text-gray-800">
               🛒
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-3 bg-red-600 text-white text-xs font-bold rounded-full px-2">
+                <span className="absolute -top-2 -right-3 flex items-center justify-center min-w-[18px] h-[18px] bg-orange-600 text-white text-[11px] font-bold rounded-full px-1">
                   {cartCount}
                 </span>
               )}
             </div>
 
             {/* Mobile Menu Toggle */}
-            <div
-              className="w-7 h-7 flex items-center justify-center cursor-pointer md:hidden"
+            <button
+              className="md:hidden text-3xl text-gray-900"
               onClick={() => setMenuOpen((prev) => !prev)}
+              aria-label="Toggle Menu"
             >
-              {menuOpen ? (
-                <span className="text-3xl text-black">&times;</span>
-              ) : (
-                <span className="text-3xl text-black">&#9776;</span>
-              )}
-            </div>
+              {menuOpen ? "✕" : "☰"}
+            </button>
           </div>
         </div>
       </div>

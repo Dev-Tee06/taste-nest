@@ -1,29 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import { Navbar } from "./Components/Navbar";
 import { Mobilemenu } from "./Components/Mobilemenu";
-import { useState } from "react";
 import Home from "./Components/Home";
 import Menu from "./Components/Menu";
 import About from "./Components/About";
 import Contact from "./Components/Contact";
 import Footer from "./Components/Footer";
-import Typewriter from "./Components/Typewriter";
-import CartProvider from "./Components/CartContext";
+import Review from "./Components/Review";
+import Blog from "./Components/Blog";
+import Order from "./Components/Order";
+import FAQ from "./Components/FAQ";
+import { CartProvider } from "./Components/CartContext";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <div>
-      <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <Mobilemenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <Home />
-      <About />
-      <Menu />
-      <Contact />
-      <Footer />
-      <Typewriter />
-      <CartProvider />
-    </div>
+    <CartProvider>
+      <Router>
+        <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        <Mobilemenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Home />
+                <About />
+                <Review />
+                <FAQ />
+                <Contact />
+              </>
+            }
+          />
+
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+
+        <Footer />
+      </Router>
+    </CartProvider>
   );
 }
 

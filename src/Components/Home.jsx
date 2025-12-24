@@ -1,45 +1,68 @@
 import pizza from "../assets/pizza.jpeg";
-import Typewriter from "../Components/Typewriter";
+import { motion } from "framer-motion";
 
 function Home() {
   return (
     <main
       id="home"
-      className="pt-5 bg-gradient-to-r from-white via-[#f8fafc] to-[#f0f9ff]"
+      className="pt-20 relative bg-gradient-to-br from-white via-[#fefefe] to-[#f0f9ff] overflow-hidden"
     >
-      <div className="container min-h-[620px] flex mt-28 sm:mt-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 place-items-center">
+      {/* Background subtle shapes */}
+      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-orange-200 rounded-full opacity-20 blur-3xl pointer-events-none"></div>
+      <div className="absolute -bottom-32 -right-32 w-[600px] h-[600px] bg-cyan-200 rounded-full opacity-20 blur-3xl pointer-events-none"></div>
+
+      <div className="container min-h-[650px] flex items-center mt-28 sm:mt-20 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 place-items-center">
           {/* Text Section */}
-          <div className="space-y-5 order-1 sm:order-1 sm:ml-12">
-            <h1 className="text-4xl sm:text-5xl font-semibold px-4 animate-fadeInLeft">
-              Fresh, Fast & Delicious
+          <motion.div
+            className="space-y-6 order-1 sm:order-1 sm:ml-8 px-4 sm:px-0"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-900">
+              Fresh, Fast & Delicious{" "}
               <span className="text-orange-600">
-                - Just the way You Love it.
+                — Just the way You Love it.
               </span>
             </h1>
-            <Typewriter
-              lines={[
-                "At Taste Nest, we believe food is more than just a meal — it’s an experience.",
-                "Every dish is prepared with the freshest ingredients, crafted with care by our chefs.",
-                "And delivered with speed, so you can enjoy restaurant-quality flavors from the comfort of your home.",
-              ]}
-              speed={50} // typing speed (ms per character)
-              delay={1000} // delay before moving to next line
-            />
 
-            <button className=" ml-5 px-6 py-2 bg-orange-600 text-white rounded-lg shadow-md hover:bg-cyan-600 transition transform hover:scale-105 hover:translate-y-[-3px]">
-              Read More
-            </button>
-          </div>
+            <motion.p
+              className="text-gray-700 text-lg sm:text-xl max-w-xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              Taste Nest delivers gourmet meals crafted with the freshest
+              ingredients, designed to satisfy your cravings and elevate your
+              dining experience.
+            </motion.p>
+
+            <div className="flex flex-wrap gap-4 mt-6">
+              <button className="px-6 py-3 bg-orange-600 text-white font-semibold rounded-full shadow-lg hover:bg-orange-700 transition transform hover:scale-105 hover:-translate-y-1">
+                Read More
+              </button>
+              <button className="px-6 py-3 bg-white text-orange-600 font-semibold rounded-full shadow-lg hover:bg-gray-100 transition transform hover:scale-105 hover:-translate-y-1">
+                Order Now
+              </button>
+            </div>
+          </motion.div>
 
           {/* Image Section */}
-          <div className="order-2 sm:order-2 relative flex justify-center">
-            <img
+          <motion.div
+            className="order-2 sm:order-2 relative flex justify-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.img
               src={pizza}
-              className="max-w-[300px] sm:max-w-full h-auto rounded-[90px] mt-4 transition-transform duration-500 hover:scale-105 float-animation"
-              alt="Chef cooking"
+              alt="Delicious Pizza"
+              className="max-w-[300px] sm:max-w-full h-auto rounded-[80px] shadow-xl"
+              whileHover={{ scale: 1.08, rotate: 2 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
             />
-          </div>
+          </motion.div>
         </div>
       </div>
     </main>
