@@ -1,7 +1,16 @@
 import { useCart } from "../Components/CartContext";
+import { Link } from "react-router-dom";
 
 export const Mobilemenu = ({ menuOpen, setMenuOpen }) => {
   const { cartCount } = useCart();
+
+  const navItems = [
+    { label: "Home", to: "/" },
+    { label: "Menu", to: "/menu" },
+    { label: "Blog", to: "/blog" },
+    { label: "Order", to: "/order" },
+    { label: "Contact", to: "/#contact" },
+  ];
 
   return (
     <div
@@ -19,22 +28,19 @@ export const Mobilemenu = ({ menuOpen, setMenuOpen }) => {
       )}
 
       {/* Links */}
-      {[
-        { label: "Home", href: "#home" },
-        { label: "About", href: "#about" },
-        { label: "Menu", href: "#menu" },
-        { label: "Contact", href: "#contact" },
-        { label: `Cart(${cartCount})`, href: "#order" },
-      ].map((item, i) => (
-        <a
-          key={item.href}
-          href={item.href}
+      {navItems.map((item, i) => (
+        <Link
+          key={item.to}
+          to={item.to}
           onClick={() => setMenuOpen(false)}
-          className="text-2xl font-semibold text-white my-4"
+          className="text-2xl font-semibold text-white my-4 hover:text-orange-500 transition-colors duration-300"
           style={{ transitionDelay: `${i * 100}ms` }}
         >
           {item.label}
-        </a>
+          {item.label === "Order" && cartCount > 0 && (
+            <span className="ml-2 text-orange-400">({cartCount})</span>
+          )}
+        </Link>
       ))}
     </div>
   );
